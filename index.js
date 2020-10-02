@@ -91,8 +91,9 @@ app.put("/player/:id", (req, res) => {
   if (name && number && height && weight && position) {
     //index = findIndexByID(id);
     let player = roster.filter((player) => player.id == id)[0];
-    //console.log(`Put says the index is ${index}`);
-    player = {
+    index = roster.findIndex((element) => element === player)
+    console.log(`Put says the index is ${index}`);
+    roster[index] = {
       name,
       number,
       height,
@@ -129,10 +130,11 @@ app.put("/player/:id", (req, res) => {
 
 app.delete("/player/:id", (req, res) => {
   const { id } = req.params;
-  let theIndex = findIndexByID(id, roster);
-  console.log(`theIndex is showing as ${theIndex}`)
-  if (theIndex !== null) {
-    roster.splice(theIndex, 1);
+  let player = roster.filter((player) => player.id == id)[0];
+  index = roster.findIndex((element) => element === player)
+  console.log(`theIndex is showing as ${index}`)
+  if (index !== null) {
+    roster.splice(index, 1);
     res.send(`Player ID ${id} has been deleted.`);
   } else {
     res.send(`Error! ID ${id} not found on roster.`);
