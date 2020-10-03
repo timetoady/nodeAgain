@@ -6,14 +6,6 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const findIndexByID = (id, array) =>{
-    let theIndex = array.reduce((acc, player, idx) => {
-      if (acc !== null) return acc;
-      if (player.id === id) return idx;
-      return null;
-    }, null);
-    return theIndex
-  }
 
 let roster = [
   {
@@ -94,6 +86,7 @@ app.put("/player/:id", (req, res) => {
     index = roster.findIndex((element) => element === player)
     console.log(`Put says the index is ${index}`);
     roster[index] = {
+      id,
       name,
       number,
       height,
@@ -105,35 +98,13 @@ app.put("/player/:id", (req, res) => {
   }
 });
 
-// app.put("player/:id", (req, res) => {
-//   const { id } = req.params;
-//   console.log(`ID receved as ${id}`)
-//   const { name, number, height, weight, position } = req.body;
-//   try {
-//     for (const member of roster) {
-//         console.log(member)
-//         console.log(member.id)
-//       if (member.id === id) {
-//         name,
-//         number,
-//         height,
-//         weight,
-//         position
-//       }
-//     }
-//     res.json({ ok: true, roster });
-//   } catch (error) {
-//     console.error(err);
-//     res.send("Error sparkles of " + err);
-//   }
-// });
 
 app.delete("/player/:id", (req, res) => {
   const { id } = req.params;
   let player = roster.filter((player) => player.id == id)[0];
   index = roster.findIndex((element) => element === player)
   console.log(`theIndex is showing as ${index}`)
-  if (index !== null) {
+  if (index !== null && index !== -1) {
     roster.splice(index, 1);
     res.send(`Player ID ${id} has been deleted.`);
   } else {
@@ -141,11 +112,7 @@ app.delete("/player/:id", (req, res) => {
   }
 });
 
-// app.delete("/players/:id", (req, res) => {
-//     const playerIndex = roster.findIndex(val => val.id === Number(req.params.id))
-//     roster.splice(playerIndex, 1)
-//     res.json({message: `Deleted`})
-// })
+
 
 app.listen(port, () => {
   console.log("Server running on port 3000");
