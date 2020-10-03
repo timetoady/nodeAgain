@@ -57,7 +57,7 @@ app.get("/player/:number", (req, res) => {
     console.log("Got it.");
     res.json({ ok: true, player });
   } else {
-    res.send(`Player ID ${number} invalid or not in roster.`);
+    res.send(`Player number ${number} invalid or not in roster.`);
   }
 });
 
