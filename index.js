@@ -17,24 +17,24 @@ let roster = [
     number: 0,
     height: "6-3",
     weight: 180,
-    position: "Guard",
-  },
-  {
+    position: "Guard"
+    },
+    {
     id: 2,
-    name: "Random MAn",
-    number: 10,
-    height: "6-1",
-    weight: 199,
-    position: "Guarded",
-  },
-  {
+    name: "Brandon Averette",
+    number: 4,
+    height: "5-11",
+    weight: 185,
+    position: "Guard"
+    },
+    {
     id: 3,
-    name: "Running Man",
-    number: 99,
-    height: "6-1",
-    weight: 810,
-    position: "Backward",
-  },
+    name: "Alex Barcello",
+    number: 13,
+    height: "6-2",
+    weight: 180,
+    position: "Guard"
+    }
 ];
 
 
@@ -50,14 +50,14 @@ app.get("/roster", (_, res) => {
 });
 
 //Get individual player by their jersey number via player endpoint
-app.get("/player/:id", (req, res) => {
-  const { id } = req.params;
-  const player = roster.filter((player) => player.id == id)[0];
-  if (id) {
+app.get("/player/:number", (req, res) => {
+  const { number } = req.params;
+  const player = roster.filter((player) => player.number == number)[0];
+  if (player) {
     console.log("Got it.");
     res.json({ ok: true, player });
   } else {
-    res.send(`Player ID ${id} invalid or not in roster.`);
+    res.send(`Player ID ${number} invalid or not in roster.`);
   }
 });
 
