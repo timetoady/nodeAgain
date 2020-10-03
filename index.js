@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const port = 3000;
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -115,5 +118,5 @@ app.delete("/player/:id", (req, res) => {
 
 
 app.listen(port, () => {
-  console.log("Server running on port 3000");
+  console.log(`Server running on port ${port}`);
 });
